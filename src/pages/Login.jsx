@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie';
 
 const Login = () => {
 
@@ -25,12 +26,15 @@ const Login = () => {
         },
         body: JSON.stringify(inputs)
       })
-      
+      console.log(res)
       if (res.status === 409) {
         const data = await res.text();
         setError(data);
       } else {
         const data = await res.json();
+        const cookie = res.headers.get("front-token");
+        console.log(cookie)
+        Cookies.set("access_token", cookie);
         navigate("/")
         /* console.log(data) */
       }
