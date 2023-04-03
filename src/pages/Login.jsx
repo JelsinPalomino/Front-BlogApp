@@ -25,16 +25,14 @@ const Login = () => {
           "Content-Type": "application/json" 
         },
         body: JSON.stringify(inputs)
-      })
-      console.log(res)
+      })      
+      
       if (res.status === 409) {
         const data = await res.text();
         setError(data);
       } else {
         const data = await res.json();
-        const cookie = res.headers.get("front-token");
-        console.log(cookie)
-        Cookies.set("access_token", cookie);
+        Cookies.set("access_token", data.token);
         navigate("/")
         /* console.log(data) */
       }
