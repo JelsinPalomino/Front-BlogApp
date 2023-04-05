@@ -33,6 +33,13 @@ const Login = () => {
       } else {
         const data = await res.json();
         Cookies.set("access_token", data.token);
+        delete data.token;
+        /* localStorage.setItem("id", data.id)
+        localStorage.setItem("username", data.username)
+        localStorage.setItem("email", data.email)
+        localStorage.setItem("image", data.imagen) */
+
+        localStorage.setItem("data", JSON.stringify(data))
         navigate("/")
         /* console.log(data) */
       }
